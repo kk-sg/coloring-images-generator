@@ -76,6 +76,10 @@ def main():
     # Load and display the image
     image = Image.open('./images/magic_garden.png')
     st.image(image, caption='Its magical')
+
+    # Load and display the image
+    image = Image.open('./images/super.png')
+    st.image(image, caption='Its super')
     
     st.markdown("""
     Ever wished you could summon an army of cute, colorable images with just a few clicks? Well, now you can! Our app uses the power of AI to generate custom coloring book pages faster than you can say "pass the crayons!"
