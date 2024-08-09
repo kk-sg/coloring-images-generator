@@ -9,7 +9,7 @@ import io
 from PIL import Image
 
 def get_api_key():
-    return st.text_input("Enter your OpenAI API key", type='password', key="api_key_input")
+    return st.text_input("Enter your OpenAI API key (don't worry, we won't peek!)", type='password', key="api_key_input")
 
 
 def generate_themes(client):
