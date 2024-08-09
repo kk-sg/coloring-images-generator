@@ -93,7 +93,7 @@ def main():
 
     ## 🔑 Getting Your OpenAI API Key
 
-    Before you can start generating cute critters, you'll need an OpenAI API key. Here's how to get one:
+    Before you can start generating cute images, you'll need an OpenAI API key. Here's how to get one:
 
     1. Visit [OpenAI's website](https://platform.openai.com/)
     2. Sign up or log in: If you don't have an account, click "Sign up" and create one. If you already have an account, click "Log in".
