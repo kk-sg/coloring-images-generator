@@ -21,7 +21,7 @@ Ever wished you could summon an army of cute, colorable images with just a few c
 
 ### Option 1: Use Our Streamlit Page (No Code Required!)
 
-1. Visit our Streamlit page at [[Coloring Book Image Generator](https://coloring-images-generator.streamlit.app/)]
+1. Visit our Streamlit page at [[Adorable Coloring Book Generator](https://coloring-images-generator.streamlit.app/)]
 2. Get ready to generate some adorable coloring pages!
 
 ### Option 2: Run It Yourself
@@ -66,7 +66,7 @@ Side effects may include:
 ## 🙏 Acknowledgments
 
 A big thank you to:
-- The AI for not drawing outside the lines
+- The AI for generating these images
 - Crayons and colored pencils everywhere
 - You, for bringing these adorable creations to life!
 
