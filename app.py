@@ -66,7 +66,34 @@ def create_zip_file(folder_name):
 
 
 def main():
-    st.title("Children's Coloring Book Image Generator")
+    st.title("🐘 Adorable Coloring Book Generator 🖍️")
+
+    st.markdown("""
+    Welcome to the cutest corner of the internet! This Streamlit app is your magical gateway to creating adorable coloring pages that will make children (and let's be honest, adults too) squeal with delight.
+
+    ## 🌟 What's This All About?
+
+    Ever wished you could summon an army of cute, colorable critters with just a few clicks? Well, now you can! Our app uses the power of AI to generate custom coloring book pages faster than you can say "pass the crayons!"
+
+    ## 🚀 Features
+
+    - 🎨 Generate unique coloring pages with various themes
+    - 🔢 Choose how many masterpieces you want (up to 10!)
+    - 📥 Download your creations as a zip file
+    - 🌈 Perfect for rainy days, birthday parties, or when you just need a dose of cuteness
+
+    ## 🔑 Getting Your OpenAI API Key
+
+    Before you can start generating cute critters, you'll need an OpenAI API key. Here's how to get one:
+
+    1. Visit [OpenAI's website](https://openai.com/api/)
+    2. Sign up for an account (or log in if you already have one)
+    3. Navigate to the API section
+    4. Create a new API key (it's like finding a golden ticket!)
+    5. Copy your shiny new API key
+    """)
+
+    st.markdown("---")  # This adds a horizontal line for separation
 
     # Initialize session state for theme if it doesn't exist
     if 'selected_theme' not in st.session_state:

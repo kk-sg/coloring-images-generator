@@ -17,7 +17,7 @@ Ever wished you could summon an army of cute, colorable critters with just a few
 
 ### Option 1: Use Our Streamlit Page (No Code Required!)
 
-1. Visit our Streamlit page at [insert your Streamlit app URL here]
+1. Visit our Streamlit page at [[Coloring Book Image Generator](https://coloring-images-generator.streamlit.app/)]
 2. Get ready to generate some adorable coloring pages!
 
 ### Option 2: Run It Yourself
