@@ -74,7 +74,7 @@ def main():
     ## 🌟 What's This All About?""")
     
     # Load and display the image
-    image = Image.open('./images/my-magic_garden.png')
+    image = Image.open('./images/magic_garden.png')
     st.image(image, caption='Its magical')
     
     st.markdown("""
