@@ -6,7 +6,7 @@ import requests
 from typing import List
 import zipfile
 import io
-
+from PIL import Image
 
 def get_api_key():
     return st.text_input("Enter your OpenAI API key", type='password', key="api_key_input")
@@ -66,15 +66,18 @@ def create_zip_file(folder_name):
 
 
 def main():
-    st.title("🐘 Adorable Coloring Book Generator 🖍️")
+    st.title("🪄 Adorable Coloring Book Generator 🖍️")
 
     st.markdown("""
     Welcome to the cutest corner of the internet! This Streamlit app is your magical gateway to creating adorable coloring pages that will make children (and let's be honest, adults too) squeal with delight.
 
-    ## 🌟 What's This All About?
+    ## 🌟 What's This All About?""")
     
-    ![Its magical](./images/magic_garden.png)
-
+    # Load and display the image
+    image = Image.open('./images/my-magic_garden.png')
+    st.image(image, caption='Its magical')
+    
+    st.markdown("""
     Ever wished you could summon an army of cute, colorable images with just a few clicks? Well, now you can! Our app uses the power of AI to generate custom coloring book pages faster than you can say "pass the crayons!"
 
     ## 🚀 Features
