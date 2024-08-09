@@ -4,7 +4,7 @@ Welcome to the cutest corner of the internet! This Streamlit app is your magical
 
 ## 🌟 What's This All About?
     
-![Its magical](coloring-images-generator/images/magic_garden.png)
+![Its magical](./images/magic_garden.png)
 
 Ever wished you could summon an army of cute, colorable images with just a few clicks? Well, now you can! Our app uses the power of AI to generate custom coloring book pages faster than you can say "pass the crayons!"
 
