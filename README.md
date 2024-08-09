@@ -30,11 +30,17 @@ Ever wished you could summon an army of cute, colorable critters with just a few
 
 Before you can start generating cute critters, you'll need an OpenAI API key. Here's how to get one:
 
-1. Visit [OpenAI's website](https://openai.com/api/)
-2. Sign up for an account (or log in if you already have one)
-3. Navigate to the API section
-4. Create a new API key (it's like finding a golden ticket!)
-5. Copy your shiny new API key
+1. Visit [OpenAI's website](https://platform.openai.com/)
+2. Sign up or log in: If you don't have an account, click "Sign up" and create one. If you already have an account, click "Log in".
+3. Navigate to API keys: Once logged in, look for your account name or icon in the top-right corner of the page. Click on it to open a dropdown menu.
+4. Select "Your Profile".
+5. Select "User API keys".
+6. Create a new API key: Look for a button that says "Create new secret key" or "+ New secret key".
+7. Name your key (optional): You may have the option to give your API key a name.
+8. Copy and save your API key: After creating the key, you'll see it displayed once. **Make sure to copy it immediately and store it securely, as you won't be able to see it again.**
+9. Set up billing: Before you can use your API key, you need to set up billing. Look for a "Billing" or "Payment" section in the account settings or main menu.
+10. Set usage limits (optional): In the billing section, you may be able to set usage limits to control your spending.
+
 
 ## 🎨 Using Your API Key on Streamlit
 
