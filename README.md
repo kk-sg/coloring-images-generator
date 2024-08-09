@@ -1,4 +1,4 @@
-# 🪄 Adorable Coloring Book Generator 🖍️
+# 🪄 AI Coloring Book Generator 🖍️
 
 Welcome to the cutest corner of the internet! This Streamlit app is your magical gateway to creating adorable coloring pages that will make children (and let's be honest, adults too) squeal with delight.
 
@@ -21,7 +21,7 @@ Ever wished you could summon an army of cute, colorable images with just a few c
 
 ### Option 1: Use Our Streamlit Page (No Code Required!)
 
-1. Visit our Streamlit page at [[Adorable Coloring Book Generator](https://coloring-images-generator.streamlit.app/)]
+1. Visit our Streamlit page at [[AI Coloring Book Generator](https://coloring-images-generator.streamlit.app/)]
 2. Get ready to generate some adorable coloring pages!
 
 ### Option 2: Run It Yourself

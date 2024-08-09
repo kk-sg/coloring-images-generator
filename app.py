@@ -66,7 +66,7 @@ def create_zip_file(folder_name):
 
 
 def main():
-    st.title("🪄 Adorable Coloring Book Generator 🖍️")
+    st.title("🪄 AI Coloring Book Generator 🖍️")
 
     st.markdown("""
     Welcome to the cutest corner of the internet! This Streamlit app is your magical gateway to creating adorable coloring pages that will make children (and let's be honest, adults too) squeal with delight.
