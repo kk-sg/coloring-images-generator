@@ -17,6 +17,13 @@ Ever wished you could summon an army of cute, colorable images with just a few c
 - 📥 Download your creations as a zip file
 - 🌈 Perfect for rainy days, birthday parties, or when you just need a dose of cuteness
 
+## 🏃‍♂️ Getting Started
+### Prerequisites
+
+- Python 3.8+
+- Streamlit
+- OpenAI API key (see below for instructions)
+
 ## 🏃‍♂️ How to Run
 
 ### Option 1: Use Our Streamlit Page (No Code Required!)
