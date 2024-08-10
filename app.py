@@ -8,40 +8,79 @@ import zipfile
 import io
 from PIL import Image
 
-def get_api_key():
-    return st.text_input("Enter your OpenAI API key (don't worry, we won't peek!)", type='password', key="api_key_input")
+
+def get_api_key() -> str:
+    """
+    Retrieves the OpenAI API key from the user via a password input field.
+
+    Returns:
+        str: The user-provided OpenAI API key.
+    """
+    return st.text_input(
+        "Enter your OpenAI API key (don't worry, we won't peek)",
+        type='password',
+        key="api_key_input"
+    )
 
 
-def generate_themes(client):
+def generate_themes(client) -> list[str]:
+    """
+    Generates a list of themes for children's coloring book pages using the OpenAI client.
+
+    If the themes are already generated and stored in the session state, returns the cached result.
+    Otherwise, sends a prompt to the OpenAI model to generate the themes and stores them in the session state.
+
+    Args:
+        client: The OpenAI client instance.
+
+    Returns:
+        list[str]: A list of themes for children's coloring book pages.
+    """
     if 'themes' not in st.session_state:
         prompt = "Generate a list of 10 suitable themes for children's coloring book pages."
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
-        themes = response.choices[0].message.content.strip().split('\n')
-        st.session_state.themes = [theme.strip('- ') for theme in themes]
+        themes = [
+            theme.strip('- ')
+            for theme in response.choices[0].message.content.strip().split('\n')
+        ]
+        st.session_state.themes = themes
     return st.session_state.themes
 
 
-# def generate_one_liner(client, theme):
-#    prompt = f"Generate a simple one-liner prompt for a coloring book page based on the theme: {theme}"
-#    response = client.chat.completions.create(
-#        model="gpt-3.5-turbo",
-#        messages=[{"role": "user", "content": prompt}]
-#    )
-#    return response.choices[0].message.content.strip()
+def image_prompt(theme: str) -> str:
+    """
+    Generates a prompt for creating a children's coloring book page image based on the given theme.
 
+    Args:
+        theme: The theme for the coloring book page.
 
-def image_prompt(st_session_state_selected_theme):
-    prompt = f"""Create a black and white line drawing suitable for a children's coloring book page. 
-                The image should feature a simple, cute cartoon-style in a balanced composition. 
-                The theme is '{st_session_state_selected_theme}'. 
-                Ensure the design has clear, bold lines and simple shapes that will look good when scaled up for printing on A4 paper. 
-                Avoid intricate details that may be lost when printed."""
+    Returns:
+        str: A prompt for creating a children's coloring book page image.
+    """
+    prompt = f"""
+    Create a black and white line drawing suitable for a children's coloring book page.
+    The image should feature a simple, cute cartoon-style in a balanced composition.
+    The theme is '{theme}'.
+    Ensure the design has clear, bold lines and simple shapes that will look good when scaled up for printing on A4 paper.
+    Avoid intricate details that may be lost when printed.
+    """
     return prompt
 
-def generate_image(client, prompt):
+
+def generate_image(client, prompt: str) -> str:
+    """
+    Generates an image using the DALL-E model based on the given prompt.
+
+    Args:
+        client: The OpenAI client instance.
+        prompt: The prompt for generating the image.
+
+    Returns:
+        str: The URL of the generated image.
+    """
     response = client.images.generate(
         model="dall-e-3",
         prompt=prompt,
@@ -49,31 +88,75 @@ def generate_image(client, prompt):
         quality="standard",
         n=1
     )
-    return response.data[0].url
+    if response.data:
+        return response.data[0].url
+    else:
+        raise ValueError("No image generated")
 
 
-def save_image(url, folder_name, image_number):
+def save_image(url: str, folder_name: str, image_number: int) -> str | None:
+    """
+    Saves an image from a URL to a local file.
+
+    Args:
+        url: The URL of the image to save.
+        folder_name: The name of the folder to save the image in.
+        image_number: The number to use in the filename.
+
+    Returns:
+        str | None: The path to the saved image file, or None if the image could not be saved.
+    """
     os.makedirs(folder_name, exist_ok=True)
-    response = requests.get(url)
-    if response.status_code == 200:
-        file_path = os.path.join(
-            folder_name, f"generated_image_{image_number}.png")
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Error downloading image: {e}")
+        return None
+
+    file_path = os.path.join(
+        folder_name, f"generated_image_{image_number}.png")
+    try:
         with open(file_path, 'wb') as file:
             file.write(response.content)
-        return file_path
-    return None
+    except IOError as e:
+        print(f"Error saving image: {e}")
+        return None
+
+    return file_path
 
 
-def create_zip_file(folder_name):
+def create_zip_file(folder_name: str) -> io.BytesIO:
+    """
+    Creates a ZIP file from the contents of a folder.
+
+    Args:
+        folder_name: The name of the folder to zip.
+
+    Returns:
+        io.BytesIO: A bytes buffer containing the ZIP file data.
+    """
     zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+    
+    # compression parameter to the ZipFile constructor to make it explicit that we're using DEFLATE compression.
+    with zipfile.ZipFile(zip_buffer, 'w', compression=zipfile.ZIP_DEFLATED) as zip_file:
         for root, _, files in os.walk(folder_name):
             for file in files:
-                zip_file.write(os.path.join(root, file), file)
+                file_path = os.path.join(root, file)
+                
+                # relative_path variable to preserve the directory structure of the files in the ZIP file.
+                relative_path = os.path.relpath(file_path, folder_name)
+                zip_file.write(file_path, relative_path)
+    # reset the buffer's position to the beginning, so that the caller can read the ZIP file data from the start.
+    zip_buffer.seek(0)
     return zip_buffer
 
 
 def main():
+    """
+    The main function of the Streamlit app.
+    """
+    
     st.title("🪄 AI Coloring Book Generator 🖍️")
 
     st.markdown("""
@@ -144,8 +227,6 @@ def main():
             f"You've chosen to generate {num_images} images. Please note that generating more images will increase your API usage and costs.")
 
         if st.button("Generate Images", key="generate_button"):
-            # one_liner_theme_prompt = generate_one_liner(
-            #    client, st.session_state.selected_theme)
             st.write(
                 f"Creating images based on '{st.session_state.selected_theme}'")
 
@@ -154,12 +235,6 @@ def main():
 
             progress_bar = st.progress(0)
             for i in range(num_images):
-                # generate_image_prompt = f"""Create a black and white line drawing suitable for a children's coloring book page. 
-                # The image should feature a simple, cute cartoon-style in a balanced composition. 
-                # The theme is '{st.session_state.selected_theme}': {one_liner_theme_prompt}. 
-                # Ensure the design has clear, bold lines and simple shapes that will look good when scaled up for printing on A4 paper. 
-                # Avoid intricate details that may be lost when printed."""
-
                 generate_image_prompt = image_prompt(
                     st.session_state.selected_theme)
                 image_url = generate_image(client, generate_image_prompt)
