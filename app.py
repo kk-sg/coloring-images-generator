@@ -24,14 +24,22 @@ def generate_themes(client):
     return st.session_state.themes
 
 
-def generate_one_liner(client, theme):
-    prompt = f"Generate a simple one-liner prompt for a coloring book page based on the theme: {theme}"
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response.choices[0].message.content.strip()
+# def generate_one_liner(client, theme):
+#    prompt = f"Generate a simple one-liner prompt for a coloring book page based on the theme: {theme}"
+#    response = client.chat.completions.create(
+#        model="gpt-3.5-turbo",
+#        messages=[{"role": "user", "content": prompt}]
+#    )
+#    return response.choices[0].message.content.strip()
 
+
+def image_prompt(st_session_state_selected_theme):
+    prompt = f"""Create a black and white line drawing suitable for a children's coloring book page. 
+                The image should feature a simple, cute cartoon-style in a balanced composition. 
+                The theme is '{st_session_state_selected_theme}'. 
+                Ensure the design has clear, bold lines and simple shapes that will look good when scaled up for printing on A4 paper. 
+                Avoid intricate details that may be lost when printed."""
+    return prompt
 
 def generate_image(client, prompt):
     response = client.images.generate(
@@ -136,8 +144,8 @@ def main():
             f"You've chosen to generate {num_images} images. Please note that generating more images will increase your API usage and costs.")
 
         if st.button("Generate Images", key="generate_button"):
-            one_liner_theme_prompt = generate_one_liner(
-                client, st.session_state.selected_theme)
+            # one_liner_theme_prompt = generate_one_liner(
+            #    client, st.session_state.selected_theme)
             st.write(
                 f"Creating images based on '{st.session_state.selected_theme}'")
 
@@ -146,12 +154,14 @@ def main():
 
             progress_bar = st.progress(0)
             for i in range(num_images):
-                generate_image_prompt = f"""Create a black and white line drawing suitable for a children's coloring book page. 
-                The image should feature a simple, cute cartoon-style in a balanced composition. 
-                The theme is '{st.session_state.selected_theme}': {one_liner_theme_prompt}. 
-                Ensure the design has clear, bold lines and simple shapes that will look good when scaled up for printing on A4 paper. 
-                Avoid intricate details that may be lost when printed."""
+                # generate_image_prompt = f"""Create a black and white line drawing suitable for a children's coloring book page. 
+                # The image should feature a simple, cute cartoon-style in a balanced composition. 
+                # The theme is '{st.session_state.selected_theme}': {one_liner_theme_prompt}. 
+                # Ensure the design has clear, bold lines and simple shapes that will look good when scaled up for printing on A4 paper. 
+                # Avoid intricate details that may be lost when printed."""
 
+                generate_image_prompt = image_prompt(
+                    st.session_state.selected_theme)
                 image_url = generate_image(client, generate_image_prompt)
                 file_path = save_image(image_url, folder_name, i + 1)
                 generated_file_paths.append(file_path)
