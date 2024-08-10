@@ -152,37 +152,36 @@ def create_zip_file(folder_name: str) -> io.BytesIO:
     return zip_buffer
 
 
-def main():
+def display_intro():
     """
-    The main function of the Streamlit app.
+    Displays the introduction and welcome message.
     """
-    
-    st.title("🪄 AI Coloring Book Generator 🖍️")
-
+    st.title(" AI Coloring Book Generator ")
     st.markdown("""
-    Welcome to the cutest corner of the internet! This Streamlit app is your magical gateway to creating adorable coloring pages that will make children (and let's be honest, adults too) squeal with delight.
+    Welcome to the cutest corner of the internet This Streamlit app is your magical gateway to creating adorable coloring pages that will make children (and let's be honest, adults too) squeal with delight.
+    """)
 
-    ## 🌟 What's This All About?""")
-    
-    # Load and display the image
-    image = Image.open('./images/magic_garden.png')
-    st.image(image, caption='Its magical')
 
-    # Load and display the image
-    image = Image.open('./images/super.png')
-    st.image(image, caption='Its super')
-    
+def display_features():
+    """
+    Displays the features of the app.
+    """
     st.markdown("""
-    Ever wished you could summon an army of cute, colorable images with just a few clicks? Well, now you can! Our app uses the power of AI to generate custom coloring book pages faster than you can say "pass the crayons!"
+    ## Features
 
-    ## 🚀 Features
+    - Generate unique coloring pages with various themes
+    - Choose how many masterpieces you want (up to 10!)
+    - Download your creations as a zip file
+    - Perfect for rainy days, birthday parties, or when you just need a dose of cuteness
+    """)
 
-    - 🎨 Generate unique coloring pages with various themes
-    - 🔢 Choose how many masterpieces you want (up to 10!)
-    - 📥 Download your creations as a zip file
-    - 🌈 Perfect for rainy days, birthday parties, or when you just need a dose of cuteness
 
-    ## 🔑 Getting Your OpenAI API Key
+def display_getting_started():
+    """
+    Displays the getting started instructions.
+    """
+    st.markdown("""
+    ## Getting Your OpenAI API Key
 
     Before you can start generating cute images, you'll need an OpenAI API key. Here's how to get one:
 
@@ -197,6 +196,16 @@ def main():
     9. Set up billing: Before you can use your API key, you need to set up billing. Look for a "Billing" or "Payment" section in the account settings or main menu.
     10. Set usage limits (optional): In the billing section, you may be able to set usage limits to control your spending.
     """)
+    
+    
+def main():
+    """
+    The main function of the Streamlit app.
+    """
+    
+    display_intro()
+    display_features()
+    display_getting_started()
 
     st.markdown("---")  # This adds a horizontal line for separation
 
